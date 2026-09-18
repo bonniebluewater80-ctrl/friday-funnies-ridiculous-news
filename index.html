@@ -1,0 +1,258 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#b51f3d">
+  <meta name="description" content="Can you tell the true strange headline from the one we invented?">
+  <title>Real News or Ridiculous? | The Friday Funnies</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%23b51f3d'/%3E%3Cpath d='M14 16h36v32H14z' fill='%23fff0f4'/%3E%3Cpath d='M20 23h24M20 30h24M20 37h14' stroke='%23b51f3d' stroke-width='4'/%3E%3C/svg%3E">
+  <style>
+:root {
+  --navy: #8f1732;
+  --blue: #b51f3d;
+  --coral: #d53a55;
+  --gold: #f2a6b7;
+  --cream: #fff0f4;
+  --paper: #fffafb;
+  --ink: #3b2028;
+  --muted: #7c5962;
+  --line: #edcbd3;
+  --green: #8f1732;
+}
+* { box-sizing: border-box; }
+html { min-height: 100%; background: var(--cream); }
+body {
+  color: var(--ink);
+  font-family: "Avenir Next", "Segoe UI", system-ui, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  background: radial-gradient(circle at 15% 10%, rgba(181,31,61,.09), transparent 28rem), linear-gradient(180deg, #fff7f9, #ffe8ee);
+}
+button, a { font: inherit; }
+.game { margin: 0 auto; max-width: 950px; min-height: 100vh; padding: clamp(20px, 4vw, 42px) clamp(15px, 4vw, 36px) 24px; }
+.masthead { align-items: end; display: flex; gap: 24px; justify-content: space-between; }
+.kicker { color: var(--coral); font-size: .78rem; font-weight: 850; letter-spacing: .16em; margin: 0 0 7px; text-transform: uppercase; }
+h1, h2 { font-family: Georgia, "Times New Roman", serif; }
+h1 { color: var(--navy); font-size: clamp(2rem, 6vw, 4.6rem); letter-spacing: -.045em; line-height: .96; margin: 0; }
+h1 em { color: var(--coral); font-size: .68em; font-weight: 400; }
+.wordmark {
+  background: linear-gradient(90deg, #22c9c3, #176cc0);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  font-family: "Brush Script MT", "Segoe Script", cursive;
+  font-size: clamp(1.5rem, 3.5vw, 2.35rem);
+  font-weight: 700;
+  white-space: nowrap;
+}
+.rule { border-bottom: 1px solid var(--navy); border-top: 4px solid var(--navy); height: 8px; margin: 20px 0; }
+.play-area { background: var(--paper); border: 1px solid var(--line); box-shadow: 0 18px 55px rgba(143,23,50,.12); min-height: 530px; padding: clamp(20px, 5vw, 52px); }
+.game-top { color: var(--muted); display: flex; font-size: .92rem; font-weight: 800; justify-content: space-between; }
+.progress { background: #f3d6dd; height: 5px; margin: 12px 0 clamp(30px, 6vw, 54px); overflow: hidden; }
+.progress span { background: var(--coral); display: block; height: 100%; transition: width .35s ease; width: 20%; }
+.prompt { color: var(--navy); font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.25; margin: 0 auto 28px; max-width: 700px; text-align: center; }
+.choices { display: grid; gap: 18px; grid-template-columns: repeat(2, 1fr); }
+.choice { background: #fff; border: 2px solid #efcbd4; color: var(--ink); cursor: pointer; min-height: 180px; padding: 28px; text-align: left; transition: border-color .18s, box-shadow .18s, transform .18s; }
+.choice:hover, .choice:focus-visible { border-color: var(--blue); box-shadow: 0 10px 28px rgba(181,31,61,.13); transform: translateY(-2px); }
+.choice small { color: var(--coral); display: block; font-size: .74rem; font-weight: 900; letter-spacing: .14em; margin-bottom: 13px; text-transform: uppercase; }
+.choice span { font-family: Georgia, "Times New Roman", serif; font-size: clamp(1.15rem, 2.4vw, 1.55rem); line-height: 1.3; }
+.reveal, .results { margin: 0 auto; max-width: 680px; text-align: center; }
+.verdict { color: var(--green); font-size: .83rem; font-weight: 900; letter-spacing: .14em; margin-bottom: 12px; text-transform: uppercase; }
+.verdict.missed { color: var(--coral); }
+.reveal h2, .results h2 { color: var(--navy); font-size: clamp(1.7rem, 4vw, 2.65rem); line-height: 1.12; margin: 0 0 18px; }
+.reveal > p, .results > p { font-size: 1.08rem; line-height: 1.65; margin: 0 auto 22px; }
+.piper-note { align-items: center; background: #fff0f4; border-left: 5px solid var(--coral); display: flex; gap: 16px; margin: 26px 0; padding: 18px; text-align: left; }
+.paw { background: var(--navy); border-radius: 50%; color: var(--navy); flex: 0 0 28px; height: 28px; position: relative; }
+.paw::before { content: "•••"; color: var(--navy); font-size: 18px; left: -2px; letter-spacing: 1px; position: absolute; top: -17px; }
+.piper-note strong { color: var(--navy); display: block; }
+.piper-note span:last-child { display: block; line-height: 1.45; margin-top: 3px; }
+.primary, .secondary { border: 0; cursor: pointer; display: inline-flex; font-weight: 850; justify-content: center; min-height: 50px; padding: 14px 23px; text-decoration: none; }
+.primary { background: var(--navy); color: white; }
+.primary:hover, .primary:focus-visible { background: var(--blue); }
+.secondary { background: #f4d8df; color: var(--navy); }
+.score-ring { align-items: center; background: var(--navy); border: 7px solid var(--gold); border-radius: 50%; color: white; display: flex; flex-direction: column; height: 150px; justify-content: center; margin: 8px auto 24px; width: 150px; }
+.score-ring strong { font-family: Georgia, serif; font-size: 2.35rem; }
+.score-ring span { font-size: .75rem; letter-spacing: .12em; text-transform: uppercase; }
+.result-actions { display: flex; flex-wrap: wrap; gap: 10px; justify-content: center; }
+footer { color: var(--muted); display: flex; font-size: .8rem; justify-content: space-between; padding: 15px 2px 0; }
+.hidden { display: none !important; }
+button:focus-visible, a:focus-visible { outline: 4px solid var(--gold); outline-offset: 3px; }
+@media (max-width: 680px) {
+  .game { padding: 18px 10px; }
+  .masthead { align-items: start; flex-direction: column; gap: 10px; }
+  h1 { font-size: clamp(2.1rem, 12vw, 3.5rem); }
+  .wordmark { align-self: flex-end; }
+  .play-area { min-height: 590px; padding: 20px 15px 28px; }
+  .progress { margin-bottom: 28px; }
+  .choices { grid-template-columns: 1fr; gap: 12px; }
+  .choice { min-height: 125px; padding: 21px; }
+  footer span:last-child { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { *, *::before, *::after { scroll-behavior: auto !important; transition: none !important; } }
+
+</style>
+</head>
+<body>
+  <main class="game">
+    <header class="masthead">
+      <div>
+        <p class="kicker">The Friday Funnies presents</p>
+        <h1>Real News <em>or</em> Ridiculous?</h1>
+      </div>
+      <span class="wordmark">Bluewater</span>
+    </header>
+    <div class="rule"></div>
+    <section class="play-area" aria-live="polite">
+      <div class="game-top">
+        <div id="roundLabel">Round 1 of 5</div>
+        <div id="scoreLabel">Score: 0</div>
+      </div>
+      <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+      <section id="questionView">
+        <p class="prompt">One of these stories really happened. Which one?</p>
+        <div class="choices" id="choices"></div>
+      </section>
+      <section class="reveal hidden" id="revealView">
+        <div class="verdict" id="verdict"></div>
+        <h2 id="realHeadline"></h2>
+        <p id="explanation"></p>
+        <aside class="piper-note">
+          <span class="paw" aria-hidden="true">●</span>
+          <div><strong>Piper’s verdict</strong><span id="piperVerdict"></span></div>
+        </aside>
+        <button class="primary" id="nextBtn" type="button">Next headline</button>
+      </section>
+      <section class="results hidden" id="resultsView">
+        <p class="kicker">Final edition</p>
+        <div class="score-ring"><strong id="finalScore">0/5</strong><span>correct</span></div>
+        <h2 id="resultTitle"></h2>
+        <p id="resultCopy"></p>
+        <div class="result-actions">
+          <a class="primary" href="https://thefridayfunnies.substack.com/" target="_blank" rel="noopener">Get The Friday Funnies</a>
+          <button class="secondary" id="replayBtn" type="button">Play again</button>
+        </div>
+      </section>
+    </section>
+    <footer>
+      <span>Five headlines. No timer. Trust your instincts.</span>
+      <span>Friday Funnies Quiz No. 1</span>
+    </footer>
+  </main>
+  <script>
+const rounds = [
+  {
+    real: "More than 100 people gathered on a Pacific beach for a judged screaming contest.",
+    fake: "A California beach hired professional whisperers to keep the seagulls calm.",
+    explanation: "At Vista Del Mar, people gathered to shout their frustrations at the ocean. Olivia Gugliemotto won after her scream reached 121.9 decibels.",
+    piper: "Finally, a contest where barking would be considered professional experience."
+  },
+  {
+    real: "A Dutch museum covered 25 square meters of gallery floor with smooth peanut butter.",
+    fake: "A Belgian museum filled an entire room with jelly to honor the inventor of toast.",
+    explanation: "The Museum Boijmans Van Beuningen recreated Wim T. Schippers’ famous Peanut Butter Floor using more than 800 pounds of the smooth variety.",
+    piper: "Art is subjective. Snacks are not. Please keep both off the floor."
+  },
+  {
+    real: "Police answering a possible burglary call found a bobcat waiting at the top of the stairs.",
+    fake: "Police answering a noise complaint found a raccoon conducting an orchestra of trash cans.",
+    explanation: "Officers in Kirkland, Washington, discovered the wild visitor inside the home. It was safely removed and released near its natural habitat.",
+    piper: "Technically a cat burglar. The paperwork practically writes itself."
+  },
+  {
+    real: "A forested island vanished from a Canadian reservoir and reappeared nearly 20 miles away.",
+    fake: "A small Canadian town misplaced its public park after residents rolled it away for winter.",
+    explanation: "The enormous floating island in British Columbia’s Williston Lake carried mature trees, birds and other wildlife along for the trip.",
+    piper: "Even the island decided it needed a change of scenery."
+  },
+  {
+    real: "Some popular apples are licensed brands that only approved growers may produce.",
+    fake: "Every banana sold in Oregon must be assigned an official stage name.",
+    explanation: "Modern produce includes managed varieties such as SweeTango and Cosmic Crisp, complete with licensing rules, marketing plans and carefully controlled growing rights.",
+    piper: "The apple has representation. The banana is still taking meetings."
+  }
+];
+const choices = document.querySelector("#choices");
+const questionView = document.querySelector("#questionView");
+const revealView = document.querySelector("#revealView");
+const resultsView = document.querySelector("#resultsView");
+const roundLabel = document.querySelector("#roundLabel");
+const scoreLabel = document.querySelector("#scoreLabel");
+const progressBar = document.querySelector("#progressBar");
+const verdict = document.querySelector("#verdict");
+const realHeadline = document.querySelector("#realHeadline");
+const explanation = document.querySelector("#explanation");
+const piperVerdict = document.querySelector("#piperVerdict");
+const nextBtn = document.querySelector("#nextBtn");
+let round = 0;
+let score = 0;
+
+function orderedChoices(item) {
+  return round % 2 === 0 ? [{ text: item.real, real: true }, { text: item.fake, real: false }] : [{ text: item.fake, real: false }, { text: item.real, real: true }];
+}
+function renderRound() {
+  const item = rounds[round];
+  roundLabel.textContent = `Round ${round + 1} of ${rounds.length}`;
+  scoreLabel.textContent = `Score: ${score}`;
+  progressBar.style.width = `${((round + 1) / rounds.length) * 100}%`;
+  choices.replaceChildren();
+  orderedChoices(item).forEach((choice, index) => {
+    const button = document.createElement("button");
+    button.className = "choice";
+    button.type = "button";
+    button.innerHTML = `<small>Headline ${index === 0 ? "A" : "B"}</small><span></span>`;
+    button.querySelector("span").textContent = choice.text;
+    button.addEventListener("click", () => answer(choice.real));
+    choices.append(button);
+  });
+  questionView.classList.remove("hidden");
+  revealView.classList.add("hidden");
+  resultsView.classList.add("hidden");
+}
+function answer(correct) {
+  const item = rounds[round];
+  if (correct) score += 1;
+  verdict.textContent = correct ? "You spotted the real story" : "Ridiculous—but the other one is real";
+  verdict.classList.toggle("missed", !correct);
+  realHeadline.textContent = item.real;
+  explanation.textContent = item.explanation;
+  piperVerdict.textContent = item.piper;
+  scoreLabel.textContent = `Score: ${score}`;
+  nextBtn.textContent = round === rounds.length - 1 ? "See my score" : "Next headline";
+  questionView.classList.add("hidden");
+  revealView.classList.remove("hidden");
+  nextBtn.focus();
+}
+function showResults() {
+  document.querySelector("#finalScore").textContent = `${score}/${rounds.length}`;
+  const title = document.querySelector("#resultTitle");
+  const copy = document.querySelector("#resultCopy");
+  if (score === 5) {
+    title.textContent = "Editor-in-Chief of the Unbelievable";
+    copy.textContent = "Nothing gets past you—not even a traveling island or 800 pounds of peanut butter.";
+  } else if (score >= 3) {
+    title.textContent = "Certified Weird-News Detective";
+    copy.textContent = "Your instincts are sharp. The world is simply stranger than anyone can reasonably prepare for.";
+  } else {
+    title.textContent = "The World Wins This Round";
+    copy.textContent = "Reality has been practicing. Try again and remember: the most ridiculous answer may be the true one.";
+  }
+  revealView.classList.add("hidden");
+  resultsView.classList.remove("hidden");
+  roundLabel.textContent = "Quiz complete";
+  progressBar.style.width = "100%";
+}
+nextBtn.addEventListener("click", () => {
+  if (round === rounds.length - 1) showResults();
+  else { round += 1; renderRound(); }
+});
+document.querySelector("#replayBtn").addEventListener("click", () => {
+  round = 0;
+  score = 0;
+  renderRound();
+});
+renderRound();
+
+</script>
+</body>
+</html>
